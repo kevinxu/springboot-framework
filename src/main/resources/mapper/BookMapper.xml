@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 3. 编写持久层接口对应的mapper.xml文件： UserMapper.xml  （编写增删改查对应的sql语句），
+各个sql的id与对应com.example.demo.mapper下面对应类的方法名一致-->
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.example.demo.mapper.BookMapper">
+
+    <!-- insert user -->
+    <insert id = "insert" parameterType="Book">
+        INSERT INTO BOOKS(ID,AUTHOR,NAME) VALUES(#{id},#{author},#{name});
+    </insert>
+
+    <!-- update user -->
+    <update id="update" parameterType="Book">
+        UPDATE BOOKS SET NAME=#{name} , AUTHOR = #{author} WHERE ID=#{id}
+    </update>
+
+    <!-- find user -->
+    <select id="find" parameterType="int" resultType="Book">
+        SELECT ID,NAME,AUTHOR FROM BOOKS WHERE ID=#{0}
+    </select>
+
+    <!-- delete user -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM BOOKS WHERE ID=#{0}
+    </delete>
+
+    <select id="findByAuthor" parameterType="String" resultType="Book">
+        SELECT  ID, NAME, AUTHOR FROM BOOKS WHERE NAME=#{0}
+    </select>
+
+    <select id="getAllBooks" resultType="Book">
+        SELECT * FROM BOOKS
+    </select>
+</mapper>
